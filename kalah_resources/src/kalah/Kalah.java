@@ -26,7 +26,7 @@ Kalah {
 	public void play(IO io) {
 
 		final int NO_OF_HOUSES = 6;
-		final int SEEDS_PER_HOUSE = 2;
+		final int SEEDS_PER_HOUSE = 4;
 		final int NO_OF_PLAYERS = 2;
 		final int STARTING_SEEDS_IN_STORE = 0;
 
@@ -62,13 +62,12 @@ Kalah {
 			}
 			MoveEndState endState = rules.move(input, currentTurn);
 			if (!rules.extraTurn(endState)) {
-				boardState = gm.getBoardState();
 				rules.capture(endState, currentTurn);
 				currentTurn = gm.nextTurn();
 			}
 			boardState = gm.getBoardState();
 		}
-		ioManager.gameResults(rules.getWinner());
+//		ioManager.gameResults(rules.getWinner());
 	}
 
 

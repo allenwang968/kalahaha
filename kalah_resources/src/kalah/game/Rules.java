@@ -57,14 +57,16 @@ public class Rules implements IRules {
 
     @Override
     public void capture(MoveEndState endState, int currentTurn) {
-        if (endState.getLastHouseOwner() == currentTurn) {
-            int oppositeHouseNumber = _noOfHouses - endState.getLastHouseNumber() + 1;
-            Pit lastHouse = _board.getPlayer(endState.getLastHouseOwner() - 1).getPits()[endState.getLastHouseNumber() - 1];
-            Pit oppositeHouse = _board.getPlayer(_noOfPlayers - endState.getLastHouseOwner()).getPits()[oppositeHouseNumber - 1];
-            if (lastHouse.getSeeds() == 1 && oppositeHouse.getSeeds() > 0) {
-                int lastHouseSeeds = ((House)lastHouse).clearSeeds();
-                int oppositeHouseSeeds = ((House)oppositeHouse).clearSeeds();
-                ((Store)_board.getPlayer(currentTurn - 1).getPits()[_noOfHouses]).capture(lastHouseSeeds + oppositeHouseSeeds);
+        if (endState.getLastHouseNumber() != _noOfHouses + 1) {
+            if (endState.getLastHouseOwner() == currentTurn) {
+                int oppositeHouseNumber = _noOfHouses - endState.getLastHouseNumber() + 1;
+                Pit lastHouse = _board.getPlayer(endState.getLastHouseOwner() - 1).getPits()[endState.getLastHouseNumber() - 1];
+                Pit oppositeHouse = _board.getPlayer(_noOfPlayers - endState.getLastHouseOwner()).getPits()[oppositeHouseNumber - 1];
+                if (lastHouse.getSeeds() == 1 && oppositeHouse.getSeeds() > 0) {
+                    int lastHouseSeeds = ((House)lastHouse).clearSeeds();
+                    int oppositeHouseSeeds = ((House)oppositeHouse).clearSeeds();
+                    ((Store)_board.getPlayer(currentTurn - 1).getPits()[_noOfHouses]).capture(lastHouseSeeds + oppositeHouseSeeds);
+                }
             }
         }
     }
